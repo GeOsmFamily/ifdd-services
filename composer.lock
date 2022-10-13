@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "503daafea359f6a47082e7db79e0e078",
+    "content-hash": "46f8397511e5f801508ec2caa0382b28",
     "packages": [
         {
             "name": "akaunting/laravel-money",
@@ -9129,16 +9129,16 @@
         },
         {
             "name": "knuckleswtf/scribe",
-            "version": "3.33.2",
+            "version": "4.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/knuckleswtf/scribe.git",
-                "reference": "e39ce83fd7dfa72329912d885c5c061cb9b0045e"
+                "reference": "e34780346397a1359f2e64e3bb483524d7ba1727"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/knuckleswtf/scribe/zipball/e39ce83fd7dfa72329912d885c5c061cb9b0045e",
-                "reference": "e39ce83fd7dfa72329912d885c5c061cb9b0045e",
+                "url": "https://api.github.com/repos/knuckleswtf/scribe/zipball/e34780346397a1359f2e64e3bb483524d7ba1727",
+                "reference": "e34780346397a1359f2e64e3bb483524d7ba1727",
                 "shasum": ""
             },
             "require": {
@@ -9147,20 +9147,20 @@
                 "ext-json": "*",
                 "ext-pdo": "*",
                 "fakerphp/faker": "^1.9.1",
-                "illuminate/console": "^6.0|^7.0|^8.0|^9.0",
-                "illuminate/routing": "^6.0|^7.0|^8.0|^9.0",
-                "illuminate/support": "^6.0|^7.0|^8.0|^9.0",
+                "illuminate/console": "^8.0|^9.0",
+                "illuminate/routing": "^8.0|^9.0",
+                "illuminate/support": "^8.0|^9.0",
                 "league/flysystem": "^1.1.4|^2.1.1|^3.0",
                 "mpociot/reflection-docblock": "^1.0.1",
                 "nikic/php-parser": "^4.10",
-                "nunomaduro/collision": "^3.0|^4.0|^5.0|^6.0",
-                "php": ">=7.4",
-                "ramsey/uuid": "^3.8|^4.0",
+                "nunomaduro/collision": "^5.10|^6.0",
+                "php": ">=8.0",
+                "ramsey/uuid": "^4.2.2",
                 "shalvah/clara": "^3.1.0",
-                "shalvah/upgrader": "0.*",
+                "shalvah/upgrader": "^0.3.0",
                 "spatie/data-transfer-object": "^2.6|^3.0",
-                "symfony/var-exporter": "^4.0|^5.0|^6.0",
-                "symfony/yaml": "^4.0|^5.0|^6.0"
+                "symfony/var-exporter": "^5.4|^6.0",
+                "symfony/yaml": "^5.4|^6.0"
             },
             "replace": {
                 "mpociot/laravel-apidoc-generator": "*"
@@ -9169,15 +9169,15 @@
                 "brianium/paratest": "^6.0",
                 "dms/phpunit-arraysubset-asserts": "^0.2.0",
                 "laravel/legacy-factories": "^1.3.0",
-                "laravel/lumen-framework": "^6.0|^7.0|^8.0|^9.0",
+                "laravel/lumen-framework": "^8.0|^9.0",
                 "league/fractal": "^0.19.0",
                 "nikic/fast-route": "^1.3",
-                "orchestra/testbench": "^4.0|^5.0|^6.0|^7.0",
+                "orchestra/testbench": "^6.0|^7.0",
                 "pestphp/pest": "^1.21",
                 "phpstan/phpstan": "^1.0",
                 "phpunit/phpunit": "^9.0|^10.0",
-                "symfony/css-selector": "^5.3|^6.0",
-                "symfony/dom-crawler": "^5.3|^6.0"
+                "symfony/css-selector": "^5.4|^6.0",
+                "symfony/dom-crawler": "^5.4|^6.0"
             },
             "type": "library",
             "extra": {
@@ -9199,8 +9199,7 @@
             ],
             "authors": [
                 {
-                    "name": "Shalvah",
-                    "email": "hello@shalvah.me"
+                    "name": "Shalvah"
                 }
             ],
             "description": "Generate API documentation for humans from your Laravel codebase.✍",
@@ -9213,7 +9212,7 @@
             ],
             "support": {
                 "issues": "https://github.com/knuckleswtf/scribe/issues",
-                "source": "https://github.com/knuckleswtf/scribe/tree/3.33.2"
+                "source": "https://github.com/knuckleswtf/scribe/tree/4.0.0"
             },
             "funding": [
                 {
@@ -9221,7 +9220,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2022-07-09T21:42:18+00:00"
+            "time": "2022-09-10T02:42:26+00:00"
         },
         {
             "name": "laravel/sail",
@@ -11709,22 +11708,22 @@
         },
         {
             "name": "shalvah/upgrader",
-            "version": "0.2.0",
+            "version": "0.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/shalvah/upgrader.git",
-                "reference": "3f07bf967b450c05f0783790c6dd353a6775a424"
+                "reference": "2a2b1452bd4a1484784deb2af49fb5e1abbcf420"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/shalvah/upgrader/zipball/3f07bf967b450c05f0783790c6dd353a6775a424",
-                "reference": "3f07bf967b450c05f0783790c6dd353a6775a424",
+                "url": "https://api.github.com/repos/shalvah/upgrader/zipball/2a2b1452bd4a1484784deb2af49fb5e1abbcf420",
+                "reference": "2a2b1452bd4a1484784deb2af49fb5e1abbcf420",
                 "shasum": ""
             },
             "require": {
-                "illuminate/support": "^6.0|^7.0|^8.0|^9.0",
+                "illuminate/support": "^8.0|^9.0",
                 "nikic/php-parser": "^4.13",
-                "php": ">=7.4"
+                "php": ">=8.0"
             },
             "require-dev": {
                 "dms/phpunit-arraysubset-asserts": "^0.2.0",
@@ -11755,7 +11754,7 @@
             ],
             "support": {
                 "issues": "https://github.com/shalvah/upgrader/issues",
-                "source": "https://github.com/shalvah/upgrader/tree/0.2.0"
+                "source": "https://github.com/shalvah/upgrader/tree/0.3.0"
             },
             "funding": [
                 {
@@ -11763,7 +11762,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2022-01-14T11:07:47+00:00"
+            "time": "2022-09-10T02:18:15+00:00"
         },
         {
             "name": "spatie/backtrace",
@@ -11829,16 +11828,16 @@
         },
         {
             "name": "spatie/data-transfer-object",
-            "version": "3.8.1",
+            "version": "3.9.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/data-transfer-object.git",
-                "reference": "83c04ce0bbcb2f143782d45b5b285022fc2f8721"
+                "reference": "1df0906c4e9e3aebd6c0506fd82c8b7d5548c1c8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/data-transfer-object/zipball/83c04ce0bbcb2f143782d45b5b285022fc2f8721",
-                "reference": "83c04ce0bbcb2f143782d45b5b285022fc2f8721",
+                "url": "https://api.github.com/repos/spatie/data-transfer-object/zipball/1df0906c4e9e3aebd6c0506fd82c8b7d5548c1c8",
+                "reference": "1df0906c4e9e3aebd6c0506fd82c8b7d5548c1c8",
                 "shasum": ""
             },
             "require": {
@@ -11876,7 +11875,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/data-transfer-object/issues",
-                "source": "https://github.com/spatie/data-transfer-object/tree/3.8.1"
+                "source": "https://github.com/spatie/data-transfer-object/tree/3.9.1"
             },
             "funding": [
                 {
@@ -11888,7 +11887,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-06-02T20:28:47+00:00"
+            "time": "2022-09-16T13:34:38+00:00"
         },
         {
             "name": "spatie/flare-client-php",
@@ -12198,16 +12197,16 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v6.0.10",
+            "version": "v6.0.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "3b039081c8a6ff8773db2fc11069f2da4960449c"
+                "reference": "e65020d137ad54beb85a67ffe6435e980f35ccf3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/3b039081c8a6ff8773db2fc11069f2da4960449c",
-                "reference": "3b039081c8a6ff8773db2fc11069f2da4960449c",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/e65020d137ad54beb85a67ffe6435e980f35ccf3",
+                "reference": "e65020d137ad54beb85a67ffe6435e980f35ccf3",
                 "shasum": ""
             },
             "require": {
@@ -12252,7 +12251,7 @@
             "description": "Loads and dumps YAML files",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/yaml/tree/v6.0.10"
+                "source": "https://github.com/symfony/yaml/tree/v6.0.14"
             },
             "funding": [
                 {
@@ -12268,7 +12267,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-06-20T11:58:32+00:00"
+            "time": "2022-10-07T08:02:12+00:00"
         },
         {
             "name": "theseer/tokenizer",
