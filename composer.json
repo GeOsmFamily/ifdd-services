@@ -23,7 +23,7 @@
         "laravel/sanctum": "^3.0",
         "laravel/scout": "^9.4",
         "laravel/tinker": "^2.5",
-        "meilisearch/meilisearch-php": "^0.23.3",
+        "meilisearch/meilisearch-php": "^0.27.0",
         "psr/simple-cache": "2.0.0",
         "pxlrbt/filament-excel": "^1.1",
         "shuvroroy/filament-spatie-laravel-backup": "^1.2",
