@@ -19,7 +19,7 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "http-interop/http-factory-guzzle": "^1.2",
         "laravel/framework": "^9.0",
-        "laravel/passport": "^10.3",
+        "laravel/passport": "^11.8",
         "laravel/sanctum": "^3.0",
         "laravel/scout": "^9.4",
         "laravel/tinker": "^2.5",
