@@ -19,23 +19,21 @@ class CategorieOddResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-     protected static ?string $navigationLabel = 'Cibles des Objectifs';
+    protected static ?string $navigationLabel = 'Cibles des Objectifs';
 
-     protected static ?string $navigationGroup = 'Objectifs';
+    protected static ?string $navigationGroup = 'Objectifs';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                 Forms\Components\TextInput::make('category_number')
+                Forms\Components\TextInput::make('category_number')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('intitule')
-                    ->required()
-                    ->maxLength(255),
+                    ->required(),
                 Forms\Components\TextInput::make('name_en')
-                    ->required()
-                    ->maxLength(255),
+                    ->required(),
                 Forms\Components\Select::make('id_odd')
                     ->relationship('odd', 'name')
                     ->required(),
@@ -86,14 +84,14 @@ class CategorieOddResource extends Resource
                 Tables\Actions\CreateAction::make(),
             ]);
     }
-    
+
     public static function getRelations(): array
     {
         return [
             //
         ];
     }
-    
+
     public static function getPages(): array
     {
         return [
@@ -102,8 +100,8 @@ class CategorieOddResource extends Resource
             'view' => Pages\ViewCategorieOdd::route('/{record}'),
             'edit' => Pages\EditCategorieOdd::route('/{record}/edit'),
         ];
-    }    
-    
+    }
+
     public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()
@@ -118,7 +116,7 @@ class CategorieOddResource extends Resource
     }
 
     public static function getNavigationBadge(): ?string
-{
-    return static::getModel()::count();
-}
+    {
+        return static::getModel()::count();
+    }
 }
