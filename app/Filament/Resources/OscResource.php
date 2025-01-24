@@ -107,35 +107,25 @@ class OscResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
-                ->sortable()
-                      ->searchable(query: function (Builder $query, string $search): Builder {
-        return $query
-            ->where('name', 'like', "%{$search}%");
-    }),
-                Tables\Columns\TextColumn::make('abbreviation')
-                    ,
+                    ->sortable()
+                    ->searchable(query: function (Builder $query, string $search): Builder {
+                        return $query->whereRaw('LOWER(name) LIKE ?', ['%' . strtolower($search) . '%']);
+                    }),
+                Tables\Columns\TextColumn::make('abbreviation'),
                 Tables\Columns\TextColumn::make('pays')
-                ->sortable()
-                   ,
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('date_fondation')
                     ->date()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('reference')
-                    ,
-                Tables\Columns\TextColumn::make('personne_contact')
-                    ,
-                Tables\Columns\TextColumn::make('telephone')
-                    ,
-                Tables\Columns\TextColumn::make('email_osc')
-                    ,
-                Tables\Columns\TextColumn::make('site_web')
-                    ,
-                Tables\Columns\TextColumn::make('longitude')
-                    ,
-                Tables\Columns\TextColumn::make('latitude')
-                    ,
+                Tables\Columns\TextColumn::make('reference'),
+                Tables\Columns\TextColumn::make('personne_contact'),
+                Tables\Columns\TextColumn::make('telephone'),
+                Tables\Columns\TextColumn::make('email_osc'),
+                Tables\Columns\TextColumn::make('site_web'),
+                Tables\Columns\TextColumn::make('longitude'),
+                Tables\Columns\TextColumn::make('latitude'),
                 Tables\Columns\IconColumn::make('active')
-                ->sortable()
+                    ->sortable()
                     ->boolean(),
                 Tables\Columns\TextColumn::make('deleted_at')
                     ->dateTime()
@@ -169,14 +159,14 @@ class OscResource extends Resource
                 Tables\Actions\CreateAction::make(),
             ]);
     }
-    
+
     public static function getRelations(): array
     {
         return [
             //
         ];
     }
-    
+
     public static function getPages(): array
     {
         return [
@@ -185,110 +175,82 @@ class OscResource extends Resource
             'view' => Pages\ViewOsc::route('/{record}'),
             'edit' => Pages\EditOsc::route('/{record}/edit'),
         ];
-    }    
-    
-    public static function getEloquentQuery(): Builder
-    { 
-        if( auth()->user()->role == 3) {
-            return parent::getEloquentQuery()->where(function ($query) {
-        $query->where('pays', '=', 'Togo');
-    })
-            
-            
-            ->withoutGlobalScopes([
-                SoftDeletingScope::class,
-            ]);
-        } 
-        if( auth()->user()->role == 4) {
-            return parent::getEloquentQuery()->where(function ($query) {
-        $query->where('pays', '=', 'Benin')
-            ->orWhere('pays', '=', 'Bénin');
-    })
-            ->withoutGlobalScopes([
-                SoftDeletingScope::class,
-            ]);
-        }
-        if(auth()->user()->role == 5) {
-            return parent::getEloquentQuery()->where(function ($query) {
-        $query->where('pays', '=', 'Cameroun');
-    })
-            
-            ->withoutGlobalScopes([
-                SoftDeletingScope::class,
-            ]);
-        }
-        if( auth()->user()->role == 6) {
-            return parent::getEloquentQuery()->where(function ($query) {
-        $query->where('pays','=', 'Senegal')->orWhere('pays','=', 'Sénégal');
-    })
-            
-            ->withoutGlobalScopes([
-                SoftDeletingScope::class,
-            ]);
-        }
-        if( auth()->user()->role == 7) {
-            return parent::getEloquentQuery()->where(function ($query) {
-        $query ->where('pays','=', 'Cote d\'ivoire')->orWhere('pays', '=', 'Côte d\'ivoire')->orWhere('pays','=', 'Côte d\'Ivoire')->orWhere('pays','=', 'Cote d\'Ivoire');
-    })
-           
-            ->withoutGlobalScopes([
-                SoftDeletingScope::class,
-            ]);
-        }
-        if( auth()->user()->role == 8) {
-            return parent::getEloquentQuery()->where(function ($query) {
-        $query->where('pays','=', 'Tanzania');
-    })
-            
-            ->withoutGlobalScopes([
-                SoftDeletingScope::class,
-            ]);
-        }
-        return parent::getEloquentQuery()
-            ->withoutGlobalScopes([
-                SoftDeletingScope::class,
-            ]);
-        
     }
+
+    public static function getEloquentQuery(): Builder
+    {
+        // Liste des filtres par rôle
+        $roleFilters = [
+            3 => ['pays' => 'Togo'],
+            4 => ['pays' => ['Benin', 'Bénin']],
+            5 => ['pays' => 'Cameroun'],
+            6 => ['pays' => ['Senegal', 'Sénégal']],
+            7 => ['pays' => ['Côte d\'ivoire', 'Côte d\'Ivoire', 'Cote d\'ivoire', 'Cote d\'Ivoire']],
+            8 => ['pays' => 'Tanzania'],
+        ];
+
+        $userRole = auth()->user()->role;
+
+        $query = parent::getEloquentQuery();
+
+        // Appliquer le filtre correspondant au rôle
+        if (array_key_exists($userRole, $roleFilters)) {
+            $filter = $roleFilters[$userRole];
+
+            $query->where(function ($query) use ($filter) {
+                if (is_array($filter['pays'])) {
+                    $query->whereIn('pays', $filter['pays']);
+                } else {
+                    $query->where('pays', '=', $filter['pays']);
+                }
+            });
+        }
+
+        // Supprimer les global scopes, notamment SoftDeletingScope
+        return $query->withoutGlobalScopes([
+            SoftDeletingScope::class,
+        ]);
+    }
+
 
     public static function getNavigationBadge(): ?string
-{
-    if( auth()->user()->role == 3) {
-        
-    $country = parent::getEloquentQuery()->where('pays', 'Togo');
-    return $country->count();
-    }
+    {
+        if (auth()->user()->role == 3) {
 
-    if( auth()->user()->role == 4) {
-        
-    $country = parent::getEloquentQuery()->where('pays', 'Benin')->orWhere('pays', 'Bénin');
-    return $country->count();
-    }
+            $country = parent::getEloquentQuery()->where('pays', 'Togo');
+            return $country->count();
+        }
 
-    if( auth()->user()->role == 5) {
-        
-    $country = parent::getEloquentQuery()->where('pays', 'Cameroun');
-    return $country->count();
-    }
+        if (auth()->user()->role == 4) {
 
-    if( auth()->user()->role == 6) {
-        
-    $country = parent::getEloquentQuery()->where('pays', 'Senegal')->orWhere('pays', 'Sénégal');
-    return $country->count();
-    }
+            $country = parent::getEloquentQuery()->where('pays', 'Benin')->orWhere('pays', 'Bénin');
+            return $country->count();
+        }
 
-    if( auth()->user()->role == 7) {
-        
-    $country = parent::getEloquentQuery()->where('pays', 'Cote d\'ivoire')->orWhere('pays', 'Côte d\'ivoire')->orWhere('pays', 'Côte d\'Ivoire')->orWhere('pays', 'Cote d\'Ivoire');
-    return $country->count();
-    }
+        if (auth()->user()->role == 5) {
 
-    if( auth()->user()->role == 8) {
-        
-    $country = parent::getEloquentQuery()->where('pays', 'Tanzania');
-    return $country->count();
-    }
+            $country = parent::getEloquentQuery()->where('pays', 'Cameroun');
+            return $country->count();
+        }
 
-    return static::getModel()::count();
-}
+        if (auth()->user()->role == 6) {
+
+            $country = parent::getEloquentQuery()->where('pays', 'Senegal')->orWhere('pays', 'Sénégal');
+            return $country->count();
+        }
+
+        if (auth()->user()->role == 7) {
+
+            $country = parent::getEloquentQuery()->where('pays', 'Cote d\'ivoire')->orWhere('pays', 'Côte d\'ivoire')->orWhere('pays', 'Côte d\'Ivoire')->orWhere('pays', 'Cote d\'Ivoire');
+            return $country->count();
+        }
+
+        if (auth()->user()->role == 8) {
+
+            $country = parent::getEloquentQuery()->where('pays', 'Tanzania');
+            return $country->count();
+        }
+
+        return static::getModel()::count();
+    }
 }
