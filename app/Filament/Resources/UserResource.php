@@ -28,7 +28,7 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
-                 Forms\Components\TextInput::make('name')
+                Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('email')
@@ -39,8 +39,8 @@ class UserResource extends Resource
                 Forms\Components\TextInput::make('password')
                     ->password()
                     ->required()
-                    ->dehydrateStateUsing(fn ($state) => bcrypt($state))
-    ->dehydrated(fn ($state) => filled($state))
+                    ->dehydrateStateUsing(fn($state) => bcrypt($state))
+                    ->dehydrated(fn($state) => filled($state))
                     ->maxLength(255),
                 Forms\Components\Select::make('role')
                     ->options([
@@ -52,6 +52,7 @@ class UserResource extends Resource
                         '6' => 'User Senegal',
                         '7' => 'User Cote d\'ivoire',
                         '8' => 'User Tanzania',
+                        '9' => 'User Haiti',
                     ])
                     ->required(),
             ]);
@@ -103,14 +104,14 @@ class UserResource extends Resource
                 Tables\Actions\CreateAction::make(),
             ]);
     }
-    
+
     public static function getRelations(): array
     {
         return [
             //
         ];
     }
-    
+
     public static function getPages(): array
     {
         return [
@@ -119,8 +120,8 @@ class UserResource extends Resource
             'view' => Pages\ViewUser::route('/{record}'),
             'edit' => Pages\EditUser::route('/{record}/edit'),
         ];
-    }    
-    
+    }
+
     public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()
@@ -134,8 +135,8 @@ class UserResource extends Resource
         return auth()->user()->role == 1;
     }
 
-        public static function getNavigationBadge(): ?string
-{
-    return static::getModel()::count();
-}
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
 }
