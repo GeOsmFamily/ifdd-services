@@ -47,6 +47,7 @@ class OscResource extends Resource
                         'Senegal' => 'Senegal',
                         'Cote d\'ivoire' => 'Cote d\'ivoire',
                         'Tanzania' => 'Tanzania',
+                        'Haiti' => 'Haiti',
                     ]),
                 Forms\Components\DatePicker::make('date_fondation'),
                 Forms\Components\Textarea::make('description'),
@@ -187,6 +188,7 @@ class OscResource extends Resource
             6 => ['pays' => ['Senegal', 'Sénégal']],
             7 => ['pays' => ['Côte d\'ivoire', 'Côte d\'Ivoire', 'Cote d\'ivoire', 'Cote d\'Ivoire']],
             8 => ['pays' => 'Tanzania'],
+            9 => ['pays' => 'Haiti'],
         ];
 
         $userRole = auth()->user()->role;
@@ -248,6 +250,12 @@ class OscResource extends Resource
         if (auth()->user()->role == 8) {
 
             $country = parent::getEloquentQuery()->where('pays', 'Tanzania');
+            return $country->count();
+        }
+
+        if (auth()->user()->role == 9) {
+
+            $country = parent::getEloquentQuery()->where('pays', 'Haiti');
             return $country->count();
         }
 
