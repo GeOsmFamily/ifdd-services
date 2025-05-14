@@ -188,7 +188,7 @@ class OscResource extends Resource
             6 => ['pays' => ['Senegal', 'Sénégal']],
             7 => ['pays' => ['Côte d\'ivoire', 'Côte d\'Ivoire', 'Cote d\'ivoire', 'Cote d\'Ivoire']],
             8 => ['pays' => 'Tanzania'],
-            9 => ['pays' => 'Haiti', 'Haïti'],
+            9 => ['pays' => ['Haiti', 'Haïti']],
         ];
 
         $userRole = auth()->user()->role;
