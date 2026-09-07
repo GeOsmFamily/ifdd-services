@@ -195,7 +195,14 @@ class OscController extends BaseController
     public function update(Request $request, $id)
     {
         $osc = Osc::find($id);
+        if (!$osc) {
+            return $this->sendError('Erreur', ['error' => 'OSC introuvable.'], 404);
+        }
 
+        $user = Auth::user();
+        if (!$user || ($user->role != 1 && $user->id != $osc->user_id)) {
+            return $this->sendError('Erreur', ['error' => "Vous n'êtes pas autorisé à modifier cette OSC."], 403);
+        }
 
         $input = $request->all();
 
@@ -278,6 +285,14 @@ class OscController extends BaseController
     public function destroy($id)
     {
         $osc = Osc::find($id);
+        if (!$osc) {
+            return $this->sendError('Erreur', ['error' => 'OSC introuvable.'], 404);
+        }
+
+        $user = Auth::user();
+        if (!$user || ($user->role != 1 && $user->id != $osc->user_id)) {
+            return $this->sendError('Erreur', ['error' => "Vous n'êtes pas autorisé à supprimer cette OSC."], 403);
+        }
 
         try {
             DB::beginTransaction();
