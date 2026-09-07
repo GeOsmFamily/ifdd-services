@@ -309,13 +309,16 @@ class OscController extends BaseController
      */
     public function searchOsc(Request $request)
 {
-    $idsCategorieOdd = explode(',', $request->idsCategorieOdd);
+    $idsCategorieOdd = array_filter(explode(',', (string) $request->idsCategorieOdd));
 
     $data = array();
 
     foreach ($idsCategorieOdd as $iValue) {
         $categorieOdd = CategorieOdd::find($iValue);
-        $categorieOdd->oscs;
+
+        if (!$categorieOdd) {
+            continue;
+        }
 
         foreach ($categorieOdd->oscs as $osc) {
             // Ajoutez une condition pour vérifier si l'OSC est active
