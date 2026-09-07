@@ -320,22 +320,16 @@ class OscController extends BaseController
             continue;
         }
 
-        foreach ($categorieOdd->oscs as $osc) {
-            // Ajoutez une condition pour vérifier si l'OSC est active
-            if ($osc->active == 1) {
-                $osc->user;
+        $oscs = $categorieOdd->oscs()
+            ->where('active', 1)
+            ->with(['user', 'categorieOdds.odd', 'zoneInterventions'])
+            ->get();
 
-                foreach ($osc->categorieOdds as $categorieOdd) {
-                    $categorieOdd->odd;
-                }
+        foreach ($oscs as $osc) {
+            $bool = $this->checkIfOscInDataArray($data, $osc);
 
-                $osc->zoneInterventions;
-
-                $bool = $this->checkIfOscInDataArray($data, $osc);
-
-                if (!$bool) {
-                    $data[] = $osc;
-                }
+            if (!$bool) {
+                $data[] = $osc;
             }
         }
     }
@@ -358,14 +352,7 @@ class OscController extends BaseController
     {
         $q  = $request->input('q');
         $oscs = OSC::search($q)->get();
-
-        foreach ($oscs as $osc) {
-            $osc->user;
-            foreach ($osc->categorieOdds as $categorieOdd) {
-                $categorieOdd->odd;
-            }
-            $osc->zoneInterventions;
-        }
+        $oscs->load(['user', 'categorieOdds.odd', 'zoneInterventions']);
 
         return $this->sendResponse($oscs, 'OSC retrieved successfully.');
     }
