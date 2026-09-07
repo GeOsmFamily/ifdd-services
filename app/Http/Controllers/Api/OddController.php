@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\Odd;
 use App\Models\Osc;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
@@ -109,8 +110,15 @@ class OddController extends BaseController
      */
     public function update(Request $request, $id)
     {
-        $odd = Odd::find($id);
+        $user = Auth::user();
+        if (!$user || $user->role != 1) {
+            return $this->sendError('Erreur.', ['error' => 'Accès réservé aux administrateurs.'], 403);
+        }
 
+        $odd = Odd::find($id);
+        if (!$odd) {
+            return $this->sendError('Erreur.', ['error' => 'Odd introuvable.'], 404);
+        }
 
         try {
             DB::beginTransaction();
@@ -143,7 +151,16 @@ class OddController extends BaseController
      */
     public function destroy($id)
     {
+        $user = Auth::user();
+        if (!$user || $user->role != 1) {
+            return $this->sendError('Erreur.', ['error' => 'Accès réservé aux administrateurs.'], 403);
+        }
+
         $odd = Odd::find($id);
+        if (!$odd) {
+            return $this->sendError('Erreur.', ['error' => 'Odd introuvable.'], 404);
+        }
+
         try {
             DB::beginTransaction();
 
@@ -166,9 +183,9 @@ FROM osc_categorie_odds
 INNER JOIN categorie_odds ON osc_categorie_odds.categorie_odd_id = categorie_odds.id
 INNER JOIN odds ON categorie_odds.id_odd = odds.id
 INNER JOIN oscs ON osc_categorie_odds.osc_id = oscs.id
-WHERE odds.id = $idOdd
+WHERE odds.id = ?
   AND oscs.active = true";
-        $count = DB::select($sql);
+        $count = DB::select($sql, [$idOdd]);
         return $count[0]->count;
     }
 }

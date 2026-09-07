@@ -88,7 +88,7 @@ class Osc extends Model
         'linkedin',
         'longitude',
         'latitude',
-        'siege', 'active', 'reference'
+        'siege', 'reference'
     ];
 
     protected $hidden = [

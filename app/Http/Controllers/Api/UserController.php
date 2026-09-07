@@ -24,9 +24,9 @@ class UserController extends BaseController
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'string|max:191',
-            'email' => 'email|unique:users,email',
-            'password' => 'string|between:6,20',
+            'name' => 'required|string|max:191',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|string|between:6,20',
         ]);
 
 
@@ -34,7 +34,7 @@ class UserController extends BaseController
             return $this->sendError('Erreur de paramètres.', $validator->errors(), 400);
         }
 
-        $input = $request->all();
+        $input = $request->only(['name', 'email', 'password']);
         $input['password'] = bcrypt($input['password']);
         $user = User::create($input);
 

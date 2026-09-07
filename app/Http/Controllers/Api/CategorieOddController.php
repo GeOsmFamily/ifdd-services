@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\CategorieOdd;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
@@ -96,6 +97,10 @@ class CategorieOddController extends BaseController
      */
     public function update(Request $request, $id)
     {
+        $user = Auth::user();
+        if (!$user || $user->role != 1) {
+            return $this->sendError('Erreur.', ['error' => 'Accès réservé aux administrateurs.'], 403);
+        }
 
         $validator =  Validator::make($request->all(), [
             'category_number' => 'required',
@@ -108,10 +113,14 @@ class CategorieOddController extends BaseController
             return $this->sendError('Erreur de paramètres.', $validator->errors(), 400);
         }
 
+        $categorieOdd = CategorieOdd::find($id);
+        if (!$categorieOdd) {
+            return $this->sendError('Erreur.', ['error' => 'CategorieOdd introuvable.'], 404);
+        }
+
         try {
             DB::beginTransaction();
 
-            $categorieOdd = CategorieOdd::find($id);
             $categorieOdd->update($request->all());
 
             DB::commit();
@@ -132,11 +141,19 @@ class CategorieOddController extends BaseController
      */
     public function destroy($id)
     {
+        $user = Auth::user();
+        if (!$user || $user->role != 1) {
+            return $this->sendError('Erreur.', ['error' => 'Accès réservé aux administrateurs.'], 403);
+        }
+
+        $categorieOdd = CategorieOdd::find($id);
+        if (!$categorieOdd) {
+            return $this->sendError('Erreur.', ['error' => 'CategorieOdd introuvable.'], 404);
+        }
 
         try {
             DB::beginTransaction();
 
-            $categorieOdd = CategorieOdd::find($id);
             $categorieOdd->delete();
 
             DB::commit();

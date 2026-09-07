@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\ZoneIntervention;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
@@ -102,7 +103,16 @@ class ZoneInterventionController extends BaseController
      */
     public function update(Request $request, $id)
     {
+        $user = Auth::user();
+        if (!$user || $user->role != 1) {
+            return $this->sendError('Erreur.', ['error' => 'Accès réservé aux administrateurs.'], 403);
+        }
+
         $zoneIntervention = ZoneIntervention::find($id);
+        if (!$zoneIntervention) {
+            return $this->sendError('Erreur.', ['error' => 'ZoneIntervention introuvable.'], 404);
+        }
+
         $input = $request->all();
 
         $validator = Validator::make($input, [
@@ -144,7 +154,16 @@ class ZoneInterventionController extends BaseController
      */
     public function destroy($id)
     {
+        $user = Auth::user();
+        if (!$user || $user->role != 1) {
+            return $this->sendError('Erreur.', ['error' => 'Accès réservé aux administrateurs.'], 403);
+        }
+
         $zoneIntervention = ZoneIntervention::find($id);
+        if (!$zoneIntervention) {
+            return $this->sendError('Erreur.', ['error' => 'ZoneIntervention introuvable.'], 404);
+        }
+
         try {
 
             DB::beginTransaction();
